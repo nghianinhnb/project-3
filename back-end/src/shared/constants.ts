@@ -1,5 +1,5 @@
 import path from "path"
-import { root } from "../utils"
+import { root } from "../shared/utils"
 
 
 const MOVIE_PATH = path.join(root(), 'movie')

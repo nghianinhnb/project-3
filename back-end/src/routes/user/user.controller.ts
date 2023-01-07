@@ -5,7 +5,7 @@ import { Controller } from '../../types/interface';
 import { BadRequestError, ConflictError, NotFoundError, UnauthorizedError } from '../../errors';
 
 import { User } from '../../models';
-import * as Utils from '../../utils';
+import * as Utils from '../../shared/utils';
 import { RegisterDto, UpdateDto } from './user.dto';
 import { requireAuth, checkAdmin } from '../../middlewares';
 
