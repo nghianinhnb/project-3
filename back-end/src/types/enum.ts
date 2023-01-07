@@ -8,7 +8,7 @@ export enum ERROR_VI {
     WRONG_PASSWORD = 'Sai tên đăng nhập hoặc mật khẩu',
     INVALID_STATE = 'Trạng thái không hợp lệ',
     NOT_VALID_PARAMETERS = 'Tham số không hợp lệ',
-    ACCOUNT_EXISTS = 'Tài khoản đã tồn tại',
+    CONFLICT = 'Tài nguyên đã tồn tại',
     WRONG_OLD_PASSWORD = 'Nhập sai mật khẩu hiện tại',
     INVALID_EMAIL = 'Email không hợp lệ',
     SERVICE_UNAVAILABLE = 'Server đang bận',

@@ -1,14 +1,14 @@
-import path from "path"
+import {join} from "path"
 import { root } from "../shared/utils"
 
 
-const MOVIE_PATH = path.join(root(), 'movie')
-const FFMPEG_PATH = path.join(root(), 'libs\\ffmpeg\\bin\\ffmpeg.exe')
-const MAX_BYTES_PER_SECOND = 2000000
+const constants = {
+    PDF_STORAGE_PATH: join(root(), '/storage/pdf'),
 
+    IMAGE_STORAGE_PATH: join(root(), '/storage/image'),
 
-export {
-    MOVIE_PATH,
-    FFMPEG_PATH,
-    MAX_BYTES_PER_SECOND,
+    CERTIFICATE_PATH: join(root(), '/storage/certificate/certificate.p12'),
 }
+
+
+export default constants;

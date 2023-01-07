@@ -6,7 +6,7 @@ export class ConflictError extends BaseHttpError {
     statusCode = 409;
   
     constructor() {
-        super(ERROR_VI.ACCOUNT_EXISTS);
+        super(ERROR_VI.CONFLICT);
 
         Object.setPrototypeOf(this, ConflictError.prototype);
     }
