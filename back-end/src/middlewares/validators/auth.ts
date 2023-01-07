@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { CONFIG } from '../../initialize/config';
 import { UnauthorizedError } from '../../errors';
 
 
@@ -28,7 +27,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
     try {
         const payload = jwt.verify(
             jwt_payload,
-            CONFIG.SECRETS.JWT_KEY
+            process.env.JWt_KEY!
         ) as UserPayload;
             
         req.user = payload;

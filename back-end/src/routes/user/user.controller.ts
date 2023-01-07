@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { RESULT, ERROR_VI } from '../../types/enum';
+import { ERROR_VI } from '../../types/enum';
 import { Controller } from '../../types/interface';
 import { BadRequestError, ConflictError, NotFoundError, UnauthorizedError } from '../../errors';
 
@@ -16,7 +16,6 @@ export const userControllers: Controller = {
         requireAuth,
         async (req: Request, res: Response) => {
             res.send({
-                result: RESULT.success,
                 user: req.user,
             })
         }
@@ -38,7 +37,6 @@ export const userControllers: Controller = {
             const token = Utils.token.gen({id: thatUser._id, admin: thatUser.admin});
 
             res.send({
-                result: RESULT.success,
                 user: thatUser,
                 token: token,
             });
@@ -55,7 +53,6 @@ export const userControllers: Controller = {
             const thatUser = await User.findById(id);
 
             res.send({
-                result: RESULT.success,
                 user: thatUser,
             })
         }
@@ -67,7 +64,6 @@ export const userControllers: Controller = {
             const allUsers = await User.find();
 
             res.send({
-                result: RESULT.success,
                 users: allUsers,
             })
         }
@@ -88,7 +84,6 @@ export const userControllers: Controller = {
             const token = Utils.token.gen({id: newUser._id, admin: newUser.admin});
         
             res.status(201).send({
-                result: RESULT.success,
                 user: newUser,
                 token: token,
             });
@@ -107,7 +102,6 @@ export const userControllers: Controller = {
             const newRefreshToken = Utils.token.newRefreshToken();
         
             res.send({
-                result: RESULT.success,
                 token: token,
                 refreshToken: newRefreshToken,
             });
@@ -131,7 +125,6 @@ export const userControllers: Controller = {
             currentUser.save();
 
             res.send({
-                result: RESULT.success,
                 user: currentUser,
             });
         }

@@ -1,4 +1,4 @@
-import { RESULT, ERROR_VI } from "../../types/enum";
+import { ERROR_VI } from "../../types/enum";
 import { BaseHttpError } from "./base-http-error";
 
 
@@ -13,7 +13,6 @@ export class ForbiddenError extends BaseHttpError {
   
     respond() {
         return {
-            result: RESULT.fail,
             message: this.message,
         };
     }

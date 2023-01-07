@@ -1,14 +1,9 @@
-export enum RESULT {
-    fail = 'fail',
-    success = 'success',
-}
-
 
 export enum ERROR_VI {
     UNAUTHORIZED = 'Chưa đăng nhập',
     PERMISISON_DENIED  = 'Không đủ quyền thực hiện chức năng này',
     MISSING_PARAMETERS = 'Không đủ tham số',
-    INTERNAL_ERROR = 'Lỗi máy chủ',
+    INTERNAL_ERROR = 'Có lỗi xảy ra',
     NOT_FOUND = 'Không tìm thấy thông tin',
     WRONG_PASSWORD = 'Sai tên đăng nhập hoặc mật khẩu',
     INVALID_STATE = 'Trạng thái không hợp lệ',

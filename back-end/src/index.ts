@@ -1,15 +1,15 @@
 // Start server
+require('dotenv').config();
 import mongoose from 'mongoose';
 
 import app from './app';
-import { CONFIG } from './initialize/config';
 
 
 async function start() {
-    const PORT = CONFIG.LISTEN.PORT;
-    
+    const PORT = process.env.PORT || 8000;
+
     try {
-        await mongoose.connect(CONFIG.MONGO.URI);
+        await mongoose.connect(process.env.MONGO_URL!);
         console.log("Connected to MongoDb");
     } catch (err) {
         console.error(err);
