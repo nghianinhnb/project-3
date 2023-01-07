@@ -1,8 +1,3 @@
-// Check required config and dependence
-import { checkBeforeInit } from './initialize/check-before-init';
-checkBeforeInit();
-
-
 // Start server
 import mongoose from 'mongoose';
 
