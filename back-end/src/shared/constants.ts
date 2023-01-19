@@ -8,6 +8,10 @@ const constants = {
     IMAGE_STORAGE_PATH: join(root(), '/storage/image'),
 
     CERTIFICATE_PATH: join(root(), '/storage/certificate/certificate.p12'),
+
+    LOG_PATH: join(root(), '/storage/logs'),
+
+    LOG_FILE_NAME: 'project3.log',
 }
 
 

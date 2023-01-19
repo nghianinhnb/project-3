@@ -2,8 +2,11 @@ import express from 'express';
 import 'express-async-errors';
 import path from 'path';
 import cors from 'cors';
+// @ts-nocheck
+import swaggerUi from 'swagger-ui-express';
 
 import routes from './routes';
+const swaggerDocument = require('../swagger.json');
 import { errorHandler } from './middlewares';
 
 
@@ -22,6 +25,7 @@ app.use(express.urlencoded({ extended: true, limit: '500kb' }))
 
 // Custom Middlewares
 app.use("/api/v1", routes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(errorHandler);
 
 
