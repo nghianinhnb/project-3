@@ -1,7 +1,10 @@
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 
+import { accountApi } from '../../api/accountApi';
+
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 
 function SignIn({setShowSignIn}) {
@@ -11,26 +14,23 @@ function SignIn({setShowSignIn}) {
             password: '',
         },
         validationSchema: Yup.object({
-            email: Yup.string().required(t('EmailIsRequired')).email(t('EmailNotValid')),
-            password: Yup.string().required(t('PasswordIsRequired')).min(6, t('PasswordMinLength6')).matches(/^\S*$/, 'Mật khẩu không được chứa khoảng trắng'),
+            email: Yup.string().required('EmailIs Required').email('EmailNotValid'),
+            password: Yup.string().required('Password Is Required').min(6, 'Password Min Length 6').matches(/^\S*$/, 'Mật khẩu không được chứa khoảng trắng'),
         }),
-        onSubmit: values => {
-
+        async onSubmit(values) {
+            accountApi.signin({body: values});
         },
     });
     return (
-        <div className="OrderSignIn d-flex flex-column bg-white rounded-lg">
-            <div className="d-flex flex-row justify-content-between px-6 py-3">
-                <p className="H3-16B">Account information</p>
-                <a className="Content_13B"
-                    style={{color:'#663DAA'}}
-                    onClick={() => setShowSignIn(false)}
-                >
-                    SignUp
-                </a>
-            </div>
-            <div className="d-flex flex-column px-6 gap-3">
-                <Form formik={formik}/>
+        <div className="OrderSignIn container px-30 py-15">
+            <div className='bg-white rounded-3 shadow'>
+                <div className="d-flex flex-row justify-content-between px-6 py-3">
+                    <p className="H3-16B">Đăng nhập</p>
+                    <Link to='/sign-up'>Chưa có tài khoản ?</Link>
+                </div>
+                <div className="d-flex flex-column px-6 gap-3">
+                    <Form formik={formik}/>
+                </div>
             </div>
         </div>
     )
@@ -72,7 +72,7 @@ function Form({formik}) {
                         name="password"
                         type="password"
                         autoComplete='true'
-                        placeholder='Password'
+                        placeholder='Mật khẩu'
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
@@ -82,10 +82,10 @@ function Form({formik}) {
             </div>
 
             <div className="SubmitButton py-3" align='center'>
-                <button className="border-0 rounded-lg px-10 py-3"
+                <button className="border-0 rounded-3 px-10 py-3"
                     type="submit"
                 >
-                    <p className="H3-16B text-capitalize">Sign in</p>
+                    <p className="H3-16B text-capitalize">Đăng nhập</p>
                 </button>
             </div>
         </form>
