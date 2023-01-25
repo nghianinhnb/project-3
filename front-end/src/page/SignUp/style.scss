@@ -1,0 +1,52 @@
+.OrderSignUp {
+    animation: fadeIn .15s;
+    form {
+        .TextField {
+            background: #FFF;
+            input{
+                background: #FFF;
+                &:-webkit-autofill { 
+                    -webkit-background-clip: text;
+                }
+                &, &:focus{
+                    outline: none;
+                }
+            }
+        }
+        .Field {
+            background: #F4F5F8;
+            input{
+                background: #FFF;
+                &:-webkit-autofill { 
+                    -webkit-background-clip: text;
+                }
+                &, &:focus{
+                    outline: none;
+                }
+            }
+        }
+        .InputError {
+            color: red;
+        }
+        input[type=checkbox]:before {
+            background: #FFF !important;
+            border: #A635FF solid 1px;
+        }
+        input[type=checkbox]:checked:before {
+            background-color: #A635FF !important;
+        }
+        button {
+            p { color: #663DAA !important; }
+            background: white !important;
+            outline: 1px solid #663DAA !important;
+            &:enabled:hover {
+                p { color: #856DFC !important; }
+                outline: 1px solid #856DFC !important;
+            }
+            &:disabled {
+                opacity: .5;
+                cursor:default;
+            }
+        }
+    }
+}
