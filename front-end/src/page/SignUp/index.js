@@ -1,13 +1,14 @@
 import * as Yup from 'yup';
 import { useFormik } from "formik";
+import { Link, useNavigate  } from 'react-router-dom';
 
 import { accountApi } from '../../api/accountApi';
 
 import './style.scss';
-import { Link } from 'react-router-dom';
 
 
 function SignUp({setShowSignIn}) {
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -25,7 +26,8 @@ function SignUp({setShowSignIn}) {
             acceptTerms: Yup.boolean().test('isTrue', 'Accept Terms Required', (value) => value === true)
         }),
         async onSubmit(values) {
-            accountApi.signup({body: values});
+            await accountApi.signup({body: values});
+            navigate('/home');
         },
     });
     return (

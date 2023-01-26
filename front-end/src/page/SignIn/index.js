@@ -1,13 +1,14 @@
 import * as Yup from 'yup';
 import { useFormik } from "formik";
+import { Link, useNavigate  } from 'react-router-dom';
 
 import { accountApi } from '../../api/accountApi';
 
 import './style.scss';
-import { Link } from 'react-router-dom';
 
 
 function SignIn({setShowSignIn}) {
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -18,7 +19,8 @@ function SignIn({setShowSignIn}) {
             password: Yup.string().required('Password Is Required').min(6, 'Password Min Length 6').matches(/^\S*$/, 'Mật khẩu không được chứa khoảng trắng'),
         }),
         async onSubmit(values) {
-            accountApi.signin({body: values});
+            await accountApi.signin({body: values});
+            navigate('/home');
         },
     });
     return (
