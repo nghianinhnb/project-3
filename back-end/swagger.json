@@ -18,27 +18,6 @@
         "responses": {}
       }
     },
-    "/api/v1/user": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/user/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
     "/api/v1/sign-in": {
       "post": {
         "description": "",

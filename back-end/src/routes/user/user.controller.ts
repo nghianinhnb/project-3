@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
 import { ERROR_VI } from '../../types/enum';
-import { Controller } from '../../types/interface';
 import { BadRequestError, ConflictError, NotFoundError, UnauthorizedError } from '../../errors';
 
 import { User } from '../../models';
@@ -10,8 +9,7 @@ import { RegisterDto, UpdateDto } from './user.dto';
 import { requireAuth, checkAdmin } from '../../middlewares';
 
 
-export const userControllers: Controller = {
-    // GET Request
+export const userControllers = {
     me: [
         requireAuth,
         async (req: Request, res: Response) => {
@@ -36,75 +34,56 @@ export const userControllers: Controller = {
 
             const token = Utils.token.gen({id: thatUser._id, admin: thatUser.admin});
 
-            res.send({
-                user: thatUser,
-                token: token,
-            });
+            req.session = {
+                jwt: token
+            };
+          
+            res.send(thatUser);
         }
     ],
 
-    getOne: [
-        checkAdmin,
-        async (req: Request, res: Response) => {
-            const id: string = req.params.id;
-
-            if (!id) throw new BadRequestError();
-
-            const thatUser = await User.findById(id);
-
-            res.send({
-                user: thatUser,
-            })
-        }
-    ],
-
-    getAll: [
-        checkAdmin,
-        async (req: Request, res: Response) => {
-            const allUsers = await User.find();
-
-            res.send({
-                users: allUsers,
-            })
-        }
-    ],
-
-
-    // POST Request
     signUp: [
         async (req: Request, res: Response) => {
-            const { email, password, username } : RegisterDto = req.body;
-            if (!email || !password || !username) throw new BadRequestError();
+            const { email, password } = req.body;
+            if (!email || !password) throw new BadRequestError();
         
             const conflict = await User.findOne({ email });
             if (conflict != null) throw new ConflictError();
             
-            const newUser = await User.create({ email, password, username });
+            const newUser = await User.create({ email, password });
         
             const token = Utils.token.gen({id: newUser._id, admin: newUser.admin});
-        
-            res.status(201).send({
-                user: newUser,
-                token: token,
-            });
+
+            req.session = {
+                jwt: token
+            };
+
+            res.status(201).send(newUser);
         }
     ],
 
+    signOut: async (req: Request, res: Response) => {
+        req.session = null;
+        res.status(204).end();
+    },
+
     refreshToken: [
         async (req: Request, res: Response) => {
-            const refreshToken = req.body.refreshToken;
-            if (!refreshToken) throw new BadRequestError();
-        
+            const refreshToken = req.session?.refreshToken;
+            if (refreshToken) throw new UnauthorizedError();
+
             const thatUser = await User.findOne({ refreshToken });
             if (thatUser === null) throw new NotFoundError();
-                    
+
             const token = Utils.token.gen({id: thatUser._id, admin: thatUser.admin});
             const newRefreshToken = Utils.token.newRefreshToken();
-        
-            res.send({
-                token: token,
+
+            req.session = {
+                jwt: token,
                 refreshToken: newRefreshToken,
-            });
+            };
+
+            res.status(204).end();
         }
     ],
 
@@ -113,14 +92,13 @@ export const userControllers: Controller = {
     update: [
         requireAuth,
         async (req: Request, res: Response) => {
-            const { password, username } : UpdateDto = req.body;
-            if (!password && !username) throw new BadRequestError();
+            const { password } : UpdateDto = req.body;
+            if (!password) throw new BadRequestError();
         
             const currentUser = await User.findById(req.user!.id);
             if (!currentUser) throw new NotFoundError();
 
             if (password) currentUser!.password = password;
-            if (username) currentUser!.username = username;
 
             currentUser.save();
 

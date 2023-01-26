@@ -2,6 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import path from 'path';
 import cors from 'cors';
+import cookieSession from 'cookie-session';
 // @ts-nocheck
 import swaggerUi from 'swagger-ui-express';
 
@@ -21,7 +22,12 @@ app.use(cors());
 app.use('/resources', express.static(path.join(__dirname, '/public')));
 app.use(express.json({ limit: '500kb' }));
 app.use(express.urlencoded({ extended: true, limit: '500kb' }))
-
+app.use(
+    cookieSession({
+      signed: false,
+      secure: false,
+    })
+);
 
 // Custom Middlewares
 app.use("/api/v1", routes);

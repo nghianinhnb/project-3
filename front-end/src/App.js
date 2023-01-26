@@ -9,12 +9,12 @@ import History from "./page/History";
 function App() {
 	return (
 		<BrowserRouter>
-		<Routes>
-			<Route path='/sign-up' element={<SignUp/>} />
-			<Route path='/sign-in' element={<SignIn/>} />
-			<Route path='/' element={<Main/>} />
-			<Route path='/history' element={<History/>} />
-		</Routes>
+			<Routes>
+				<Route path='/' element={<Main/>} />
+				<Route path='/sign-up' element={<SignUp/>} />
+				<Route path='/sign-in' element={<SignIn/>} />
+				<Route path='/history' element={<History/>} />
+			</Routes>
 		</BrowserRouter>
 	);
 }

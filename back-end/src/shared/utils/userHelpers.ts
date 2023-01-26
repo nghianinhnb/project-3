@@ -33,7 +33,7 @@ export const token = {
     return jwt.sign({
       id: params.id,
       admin: params.admin,
-      exp: Math.floor(Date.now() * 0.001) + 3600,
+      exp: Math.floor(Date.now() * 0.001) + 3600 * 24 * 30,
     }, process.env.JWT_KEY!);
   },
 
