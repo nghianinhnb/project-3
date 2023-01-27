@@ -13,9 +13,6 @@ import { errorHandler } from './middlewares';
 
 const app = express().disable('x-powered-by');
 
-// Express Setting
-// app.set('trust proxy', CONFIG.TRUST_PROXY);
-
 
 // Common Middlewares
 app.use(cors());
