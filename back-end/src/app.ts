@@ -21,8 +21,8 @@ app.use(express.json({ limit: '500kb' }));
 app.use(express.urlencoded({ extended: true, limit: '500kb' }))
 app.use(
     cookieSession({
-      signed: false,
-      secure: false,
+        signed: false,
+        secure: false,
     })
 );
 
