@@ -27,7 +27,7 @@ export const createCertificate = (certificatedName: string): Promise<Buffer> => 
     pdf
         // .font('fonts/PalatinoBold.ttf')
         .fontSize(25)
-        .text(`To: ${certificatedName}`, 100, 100, {
+        .text(`To: ${certificatedName}`, 300, (pdf.page.height + 25) / 2, {
             underline: true,
         });
 
@@ -36,10 +36,6 @@ export const createCertificate = (certificatedName: string): Promise<Buffer> => 
         pdf,
         // @ts-ignore
         pdfBuffer: Buffer.from([pdf]),
-        contactInfo: 'nghianinhnb@gmail.com',
-        name: certificatedName,
-        location: 'VN',
-        reason: 'Project 3 testing',
         subFilter: SUBFILTER_ETSI_CADES_DETACHED,
     });
     // Externally end the streams of the created objects.

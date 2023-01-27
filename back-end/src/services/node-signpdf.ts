@@ -18,7 +18,6 @@ export async function signPDFBuffer({pdfFileName, pdfBuffer}: {pdfFileName: stri
     const signedPdfBuffer = signer.sign(pdfBuffer, p12Buffer);
 
     const pdfPath = join(constants.PDF_STORAGE_PATH, pdfFileName);
-    // fs.rmSync(pdfPath, (err) => {});
 
     Readable.from(signedPdfBuffer).pipe(fs.createWriteStream(pdfPath));
     return pdfPath;
