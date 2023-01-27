@@ -1,19 +1,41 @@
-import { Readable } from 'stream';
 import { Request, Response } from 'express';
 
-import { BadRequestError, ConflictError, NotFoundError, UnauthorizedError } from '../../errors';
+import { Certificate } from '../../models'
 
 import { createCertificate } from '../../services/pdfkit';
 import { signPDFBuffer } from '../../services/node-signpdf';
-import { requireAuth, checkAdmin } from '../../middlewares';
 
 
 export const pdfControllers = {
     gen: async (req: Request, res: Response) => {
-        const pdfBuffer = await createCertificate('test.pdf', 'Nghia')
+        /*
+        #swagger.tags = ['Pdfs']
+        #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                $batchName: 'Project 3 Cert',
+                $certificatedName: 'Ninh Van Nghia',
+            }
+        }
+        */
 
-        const stream = Readable.from(pdfBuffer);
-        
-        stream.pipe(res)
+        const {certificatedName, batchName} = req.body
+
+        const pdfFileName = `${batchName} - ${certificatedName}.pdf`
+
+        const pdfBuffer = await createCertificate(certificatedName)
+
+        const pdfPath = await signPDFBuffer({pdfFileName, pdfBuffer})
+
+        Certificate.create({
+            title: pdfFileName,
+            path: pdfPath,
+            userId: req.user?.id,
+        })
+
+        res.send({
+            title: pdfFileName,
+            path: pdfPath,
+        })
     },
 }

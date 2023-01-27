@@ -1,4 +1,3 @@
-import fs from 'fs';
 import {join} from 'path';
 import PDFDocument from 'pdfkit';
 const { SUBFILTER_ETSI_CADES_DETACHED, pdfkitAddPlaceholder } = require('node-signpdf');
@@ -6,11 +5,7 @@ const { SUBFILTER_ETSI_CADES_DETACHED, pdfkitAddPlaceholder } = require('node-si
 import constants from '../shared/constants';
 
 
-export const createCertificate = (fileName: string, name: string): Promise<Buffer> =>  new Promise((resolve) => {
-    const pdfPath = join(constants.PDF_STORAGE_PATH, fileName);
-
-    fs.rmSync(pdfPath);
-
+export const createCertificate = (certificatedName: string): Promise<Buffer> =>  new Promise((resolve) => {
     /* Creating a new PDFDocument object. */
     const pdf = new PDFDocument({
         size: 'A4',
@@ -20,7 +15,7 @@ export const createCertificate = (fileName: string, name: string): Promise<Buffe
     pdf.initForm()
 
     /* Writing the pdf to the file system. */
-    pdf.pipe(fs.createWriteStream(pdfPath));
+    // pdf.pipe(fs.createWriteStream(pdfPath));
 
     /* Adding an image to the pdf. */
     pdf.image(join(constants.IMAGE_STORAGE_PATH, 'cert-background.png'),
@@ -32,7 +27,7 @@ export const createCertificate = (fileName: string, name: string): Promise<Buffe
     pdf
         // .font('fonts/PalatinoBold.ttf')
         .fontSize(25)
-        .text(`To: ${name}`, 100, 100, {
+        .text(`To: ${certificatedName}`, 100, 100, {
             underline: true,
         });
 
@@ -42,7 +37,7 @@ export const createCertificate = (fileName: string, name: string): Promise<Buffe
         // @ts-ignore
         pdfBuffer: Buffer.from([pdf]),
         contactInfo: 'nghianinhnb@gmail.com',
-        name: 'Ninh Van Nghia',
+        name: certificatedName,
         location: 'VN',
         reason: 'Project 3 testing',
         subFilter: SUBFILTER_ETSI_CADES_DETACHED,

@@ -47,10 +47,39 @@
       }
     },
     "/api/v1/pdf/gen": {
-      "get": {
+      "post": {
+        "tags": [
+          "Pdfs"
+        ],
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "batchName": {
+                  "type": "string",
+                  "example": "Project 3 Cert"
+                },
+                "certificatedName": {
+                  "type": "string",
+                  "example": "Ninh Van Nghia"
+                }
+              },
+              "required": [
+                "batchName",
+                "certificatedName"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   }

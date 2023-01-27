@@ -12,6 +12,7 @@
 /build
 /movies
 /storage/*/
+src/public/pdf
 
 # misc
 .DS_Store
