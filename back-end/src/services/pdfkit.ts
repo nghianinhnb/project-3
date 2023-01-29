@@ -17,19 +17,23 @@ export const createCertificate = (certificatedName: string): Promise<Buffer> => 
     /* Writing the pdf to the file system. */
     // pdf.pipe(fs.createWriteStream(pdfPath));
 
-    /* Adding an image to the pdf. */
+    /* Adding background to the pdf. */
     pdf.image(join(constants.IMAGE_STORAGE_PATH, 'cert-background.png'),
         0, 0, 
         {width: pdf.page.width, height: pdf.page.height}
+    );
+
+    // Add signature image
+    pdf.image(join(constants.IMAGE_STORAGE_PATH, 'signature.png'),
+        pdf.page.width - 350, pdf.page.height - 170, 
+        {width: 200}
     );
 
     /* Adding text to the pdf. */
     pdf
         // .font('fonts/PalatinoBold.ttf')
         .fontSize(25)
-        .text(`To: ${certificatedName}`, 300, (pdf.page.height + 25) / 2, {
-            underline: true,
-        });
+        .text(`To: ${certificatedName}`, 300, (pdf.page.height + 25) / 2);
 
     // Externally (to PDFKit) add the signature placeholder.
     const refs = pdfkitAddPlaceholder({
