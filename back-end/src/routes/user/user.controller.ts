@@ -13,14 +13,27 @@ export const userControllers = {
     me: [
         requireAuth,
         async (req: Request, res: Response) => {
+            /*
+            #swagger.tags = ['User']
+            */
             res.send({
-                user: req.user,
+                ...req.user,
             })
         }
     ],
 
     signIn: [
         async (req: Request, res: Response) => {
+            /*
+            #swagger.tags = ['User']
+            #swagger.parameters['body'] = {
+                in: 'body',
+                schema: {
+                    $email: 'nghianinhnb@gmail.com',
+                    $password: '123456',
+                }
+            }
+            */
             const { email, password } : RegisterDto = req.body;
             if (!email || !password) throw new BadRequestError();
 
@@ -44,6 +57,16 @@ export const userControllers = {
 
     signUp: [
         async (req: Request, res: Response) => {
+            /*
+            #swagger.tags = ['User']
+            #swagger.parameters['body'] = {
+                in: 'body',
+                schema: {
+                    $email: 'nghianinhnb@gmail.com',
+                    $password: '123456',
+                }
+            }
+            */
             const { email, password } = req.body;
             if (!email || !password) throw new BadRequestError();
         
@@ -63,12 +86,18 @@ export const userControllers = {
     ],
 
     signOut: async (req: Request, res: Response) => {
+        /*
+        #swagger.tags = ['User']
+        */
         req.session = null;
         res.status(204).end();
     },
 
     refreshToken: [
         async (req: Request, res: Response) => {
+            /*
+            #swagger.tags = ['User']
+            */
             const refreshToken = req.session?.refreshToken;
             if (refreshToken) throw new UnauthorizedError();
 
@@ -92,6 +121,9 @@ export const userControllers = {
     update: [
         requireAuth,
         async (req: Request, res: Response) => {
+            /*
+            #swagger.tags = ['User']
+            */
             const { password } : UpdateDto = req.body;
             if (!password) throw new BadRequestError();
         

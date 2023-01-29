@@ -9,7 +9,7 @@ import { signPDFBuffer } from '../../services/node-signpdf';
 export const pdfControllers = {
     gen: async (req: Request, res: Response) => {
         /*
-        #swagger.tags = ['Pdfs']
+        #swagger.tags = ['Pdf']
         #swagger.parameters['body'] = {
             in: 'body',
             schema: {
