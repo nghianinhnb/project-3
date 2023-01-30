@@ -7,7 +7,7 @@ import { historyValidator } from './history.validator';
 const router = express.Router();
 
 
-router.post('/pdf/gen',
+router.get('/history',
     requireAuth,
     historyValidator.get,
     historyControllers.get,

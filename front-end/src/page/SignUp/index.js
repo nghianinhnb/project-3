@@ -27,7 +27,6 @@ function SignUp({setShowSignIn}) {
         }),
         async onSubmit(values) {
             await accountApi.signup({body: values});
-            navigate('/home');
         },
     });
     return (
@@ -91,7 +90,7 @@ function Form({formik}) {
                     type="submit"
                     disabled={!values.acceptTerms}
                 >
-                    <p className="H3-16B text-capitalize">SignUp</p>
+                    <p className="H3-16B text-capitalize">Đăng ký</p>
                 </button>
             </div>
         </form>

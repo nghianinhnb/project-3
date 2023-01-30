@@ -1,0 +1,13 @@
+.InputError {
+    color: red;
+}
+
+input{
+    background: #FFF;
+    &:-webkit-autofill { 
+        -webkit-background-clip: text;
+    }
+    &, &:focus{
+        outline: none;
+    }
+}

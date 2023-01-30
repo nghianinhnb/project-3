@@ -35,7 +35,6 @@ export const pdfControllers = {
 
         res.send({
             title: pdfFileName,
-            path: pdfPath,
         })
     },
 }

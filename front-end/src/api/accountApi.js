@@ -1,13 +1,29 @@
 import axiosClient from "./axiosClient";
 
 
+let isSignedIn;
+
 export const accountApi = {
-    signin({params, body}) {
+    async signin({params, body}) {
         const url = `/sign-in`;
-        return axiosClient.post(url, {params, ...body});
+        const res = await axiosClient.post(url, {params, ...body});
+        localStorage.setItem('isSignedIn', 1);
+        return res
     },
-    signup({params, body}) {
+    async signup({params, body}) {
         const url = `/sign-up`;
-        return axiosClient.post(url, {params, ...body});
+        const res = await axiosClient.post(url, {params, ...body});
+        localStorage.setItem('isSignedIn', 1);
+        return res
     },
+    async signout() {
+        const url = '/sign-out';
+        const res = await axiosClient.post(url);
+        localStorage.setItem('isSignedIn', 0);
+        return res
+    },
+    isSignedIn() {
+        if (isSignedIn) return isSignedIn;
+        return isSignedIn = parseInt(localStorage.getItem('isSignedIn'))
+    }
 }

@@ -6,24 +6,19 @@ import { BadRequestError, ConflictError, NotFoundError, UnauthorizedError } from
 import { User } from '../../models';
 import * as Utils from '../../shared/utils';
 import { RegisterDto, UpdateDto } from './user.dto';
-import { requireAuth, checkAdmin } from '../../middlewares';
 
 
 export const userControllers = {
-    me: [
-        requireAuth,
-        async (req: Request, res: Response) => {
+    me: async (req: Request, res: Response) => {
             /*
             #swagger.tags = ['User']
             */
             res.send({
                 ...req.user,
             })
-        }
-    ],
+        },
 
-    signIn: [
-        async (req: Request, res: Response) => {
+    signIn: async (req: Request, res: Response) => {
             /*
             #swagger.tags = ['User']
             #swagger.parameters['body'] = {
@@ -52,11 +47,9 @@ export const userControllers = {
             };
           
             res.send(thatUser);
-        }
-    ],
+        },
 
-    signUp: [
-        async (req: Request, res: Response) => {
+    signUp: async (req: Request, res: Response) => {
             /*
             #swagger.tags = ['User']
             #swagger.parameters['body'] = {
@@ -82,8 +75,7 @@ export const userControllers = {
             };
 
             res.status(201).send(newUser);
-        }
-    ],
+        },
 
     signOut: async (req: Request, res: Response) => {
         /*
@@ -93,8 +85,7 @@ export const userControllers = {
         res.status(204).end();
     },
 
-    refreshToken: [
-        async (req: Request, res: Response) => {
+    refreshToken: async (req: Request, res: Response) => {
             /*
             #swagger.tags = ['User']
             */
@@ -113,13 +104,11 @@ export const userControllers = {
             };
 
             res.status(204).end();
-        }
-    ],
+        },
 
 
     // Update
-    update: [
-        requireAuth,
+    update: 
         async (req: Request, res: Response) => {
             /*
             #swagger.tags = ['User']
@@ -138,5 +127,5 @@ export const userControllers = {
                 user: currentUser,
             });
         }
-    ],
+    ,
 }
