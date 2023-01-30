@@ -18,8 +18,8 @@ export const accountApi = {
     },
     async signout() {
         const url = '/sign-out';
-        const res = await axiosClient.post(url);
-        localStorage.setItem('isSignedIn', 0);
+        const res = await axiosClient.get(url);
+        localStorage.setItem('isSignedIn', isSignedIn = 0);
         return res
     },
     isSignedIn() {

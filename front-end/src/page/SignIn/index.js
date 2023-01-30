@@ -20,6 +20,7 @@ function SignIn({setShowSignIn}) {
         }),
         async onSubmit(values) {
             await accountApi.signin({body: values});
+            navigate('/home');
         },
     });
     return (

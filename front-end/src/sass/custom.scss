@@ -2,6 +2,10 @@
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+body {
+    overflow: overlay;
+}
+
 p {margin: 0;}
 
 a { text-decoration: none;}

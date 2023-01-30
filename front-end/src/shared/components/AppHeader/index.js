@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { accountApi } from "../../../api/accountApi";
 
@@ -42,12 +42,20 @@ function NavBar() {
 
 
 function Account() {
-    return (
-        <a className="H3-16B"
-            style={{cursor: 'pointer'}}
-            onClick={() => accountApi.signout()}
-        >
-            Đăng xuất
-        </a>
-    )
+    const navigate = useNavigate();
+    return accountApi.isSignedIn()
+    ? 
+    <a className="H3-16B"
+        style={{cursor: 'pointer'}}
+        onClick={async () => {
+            await accountApi.signout();
+            navigate('/sign-in');
+        }}
+    >
+        Đăng xuất
+    </a>
+    : 
+    <p className="H3-16B">
+        Đăng nhập
+    </p>
 }

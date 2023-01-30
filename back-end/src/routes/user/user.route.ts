@@ -6,6 +6,7 @@ import { userControllers } from './user.controller';
 const router = express.Router();
 
 router.get('/me', requireAuth, userControllers.me);
+router.get('/sign-out', userControllers.signOut);
 
 router.post('/sign-in', userControllers.signIn);
 router.post('/sign-up', userControllers.signUp);

@@ -27,6 +27,7 @@ function SignUp({setShowSignIn}) {
         }),
         async onSubmit(values) {
             await accountApi.signup({body: values});
+            navigate('/home');
         },
     });
     return (
