@@ -13,9 +13,14 @@ function History() {
     return (
         <div className="container px-30 py-15">
             <div className='bg-white rounded-3 shadow px-30 py-3'>
-                <div className='d-flex flex-row justify-content-between align-items-center mb-10'>
+                <div className='d-flex flex-row justify-content-between align-items-end mb-10'>
                     <h2>Lịch sử</h2>
-                    <p onClick={() => downloadHistoryPage(data?.history)}>Tải report</p>
+                    <p className='text-primary'
+                        style={{cursor: 'pointer'}}
+                        onClick={() => downloadHistoryPage(data?.history)}
+                    >
+                        Tải report
+                    </p>
                 </div>
 
                 <div className='row'>
