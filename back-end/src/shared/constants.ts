@@ -3,6 +3,8 @@ import { root } from "../shared/utils"
 
 
 const constants = {
+    TEMPLATE_STORAGE_PATH: join(root(), '/src/public/template'),
+
     PDF_STORAGE_PATH: join(root(), '/src/public/pdf'),
 
     IMAGE_STORAGE_PATH: join(root(), '/storage/image'),

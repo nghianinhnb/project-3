@@ -42,9 +42,7 @@ export const userControllers = {
 
             const token = Utils.token.gen({id: thatUser._id, admin: thatUser.admin});
 
-            req.session = {
-                jwt: token
-            };
+            req.session!.jwt = token;
           
             res.send(thatUser);
         },
@@ -70,9 +68,7 @@ export const userControllers = {
         
             const token = Utils.token.gen({id: newUser._id, admin: newUser.admin});
 
-            req.session = {
-                jwt: token
-            };
+            req.session!.jwt = token;
 
             res.status(201).send(newUser);
         },
@@ -98,10 +94,8 @@ export const userControllers = {
             const token = Utils.token.gen({id: thatUser._id, admin: thatUser.admin});
             const newRefreshToken = Utils.token.newRefreshToken();
 
-            req.session = {
-                jwt: token,
-                refreshToken: newRefreshToken,
-            };
+            req.session!.jwt = token;
+            req.session!.refreshToken = newRefreshToken;
 
             res.status(204).end();
         },

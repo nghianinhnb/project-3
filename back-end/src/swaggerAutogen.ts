@@ -23,4 +23,6 @@ const options = {
     // autoBody: true,         // Enable/Disable automatic body capture. By default is true
 }
 
-swaggerAutogen(options)(outputFile, endpointsFiles, doc)
+swaggerAutogen(options)(outputFile, endpointsFiles, doc).then(async () => {
+    await import('./index');
+});

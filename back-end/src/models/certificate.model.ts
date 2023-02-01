@@ -7,14 +7,6 @@ const certificateSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        path: {
-            type: String,
-            required: true
-        },
-        userId: {
-            type: Types.ObjectId,
-            ref: 'User',
-        },
         isPublished: {
             type: Boolean,
             default: false,

@@ -3,6 +3,7 @@ import 'express-async-errors';
 import path from 'path';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
+import fileUpload from 'express-fileupload';
 // @ts-nocheck
 import swaggerUi from 'swagger-ui-express';
 
@@ -15,10 +16,11 @@ const app = express().disable('x-powered-by');
 
 
 // Common Middlewares
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000'}));
 app.use('/resources', express.static(path.join(__dirname, '/public')));
-app.use(express.json({ limit: '500kb' }));
-app.use(express.urlencoded({ extended: true, limit: '500kb' }))
+app.use(fileUpload({limits: { fileSize: 50 * 1024 * 1024 }}));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(
     cookieSession({
         signed: false,

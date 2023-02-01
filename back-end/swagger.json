@@ -25,6 +25,20 @@
         }
       }
     },
+    "/api/v1/sign-out": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
     "/api/v1/sign-in": {
       "post": {
         "tags": [
@@ -119,25 +133,10 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "batchName": {
-                  "type": "string",
-                  "example": "Project 3 Cert"
-                },
-                "certificatedName": {
-                  "type": "string",
-                  "example": "Ninh Van Nghia"
-                }
-              },
-              "required": [
-                "batchName",
-                "certificatedName"
-              ]
-            }
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": true
           }
         ],
         "responses": {
@@ -158,6 +157,11 @@
             "name": "page",
             "in": "query",
             "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {

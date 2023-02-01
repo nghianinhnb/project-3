@@ -1,40 +1,41 @@
 import { Request, Response } from 'express';
+import fileUpload from 'express-fileupload';
 
 import { Certificate } from '../../models'
-
-import { createCertificate } from '../../services/pdfkit';
-import { signPDFBuffer } from '../../services/node-signpdf';
+import { parseTemplate } from '../../services/xlsx';
+import { genAndSignCert } from './pdf.service';
 
 
 export const pdfControllers = {
     gen: async (req: Request, res: Response) => {
         /*
         #swagger.tags = ['Pdf']
-        #swagger.parameters['body'] = {
-            in: 'body',
-            schema: {
-                $batchName: 'Project 3 Cert',
-                $certificatedName: 'Ninh Van Nghia',
-            }
+        #swagger.parameters['file'] = {
+            in: 'formData',
+            type: 'file',
+            required: 'true',
         }
         */
 
-        const {certificatedName, batchName} = req.body
+        const certificates = parseTemplate((req.files?.file as fileUpload.UploadedFile).data, {type: 'buffer'});
 
-        const pdfFileName = `${batchName} - ${certificatedName}.pdf`
+        const newllyGendedCertTitles = await Promise.all(certificates.map(async (cert) => ({title: await genAndSignCert(cert)})));
 
-        const pdfBuffer = await createCertificate(certificatedName)
-
-        const pdfPath = await signPDFBuffer({pdfFileName, pdfBuffer})
-
-        Certificate.create({
-            title: pdfFileName,
-            path: pdfPath,
-            userId: req.user?.id,
-        })
+        Certificate.insertMany(newllyGendedCertTitles)
 
         res.send({
-            title: pdfFileName,
+            titles: newllyGendedCertTitles,
         })
     },
+
+    export:async (req: Request, res: Response) => {
+        /*
+        #swagger.tags = ['Pdf']
+        #swagger.parameters['page'] = {
+            in: 'query',
+            type: 'number',
+        }
+        */
+       
+    }
 }

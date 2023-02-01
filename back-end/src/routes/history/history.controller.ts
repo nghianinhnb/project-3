@@ -12,12 +12,12 @@ export const historyControllers = {
             type: 'number'
         }
         */
-        const page = parseInt(req.params.page) || 0
-        const limit = parseInt(req.params.limit) || 10
+        const page = parseInt(req.query.page as string) || 0
+        const limit = parseInt(req.query.limit as string) || 10
 
-        const history = await Certificate.find({userId: req.user?.id}).then((d: Array<any>) => (({
+        const history = await Certificate.find().sort('-createdAt').then((d: Array<any>) => (({
             total: d.length,
-            data: d.slice(page * limit, limit)
+            data: d.slice(page * limit, page * limit + limit)
         })))
 
         res.send({
