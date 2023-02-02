@@ -146,6 +146,27 @@
         }
       }
     },
+    "/api/v1/pdf/upload-to-ipfs/{certId}": {
+      "get": {
+        "tags": [
+          "Pdf"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "certId",
+            "in": "params",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/history": {
       "get": {
         "tags": [
@@ -164,6 +185,23 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/report": {
+      "get": {
+        "tags": [
+          "History"
+        ],
+        "description": "",
+        "produces": [
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"

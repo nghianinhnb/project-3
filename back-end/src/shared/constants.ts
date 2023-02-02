@@ -7,6 +7,8 @@ const constants = {
 
     PDF_STORAGE_PATH: join(root(), '/src/public/pdf'),
 
+    IPFS_STORAGE_FILE: join(root(), '/storage/ipfs'),
+
     IMAGE_STORAGE_PATH: join(root(), '/storage/image'),
 
     CERTIFICATE_PATH: join(root(), '/storage/certificate/certificate.p12'),

@@ -11,7 +11,7 @@ function History() {
     const {data} = historyQuery.useHistory({page})
 
     return (
-        <div className="container px-30 py-15">
+        <div className="container px-30 pt-15">
             <div className='bg-white rounded-3 shadow px-30 py-3'>
                 <div className='d-flex flex-row justify-content-between align-items-end mb-10'>
                     <h2>Lịch sử</h2>
@@ -40,7 +40,7 @@ function History() {
                                 </a>
                             </div>
                             <div className='col-3'>{dayjs(createdAt).format('DD/MM/YYYY HH:MM:ss')}</div>
-                            <div className='col-3'>{isPublished}</div>
+                            <div className='col-3' align='center'>{isPublished ? 'link' : 'Tai len'}</div>
                         </div>
                     </div>
                 ))}

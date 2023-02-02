@@ -11,5 +11,9 @@ router.post('/pdf/gen',
     pdfControllers.gen,
 );
 
+router.get('/pdf/upload-to-ipfs/:certId',
+    pdfControllers.upBlock,
+);
+
 
 export { router as pdfRouter };

@@ -8,8 +8,7 @@ const certificateSchema = new mongoose.Schema(
             required: true
         },
         isPublished: {
-            type: Boolean,
-            default: false,
+            type: String,
             required: true
         },
     },

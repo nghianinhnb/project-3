@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import { Readable } from 'stream';
 
 import { Certificate } from '../../models'
+import { exportReport } from '../../services/xlsx';
 
 
 export const historyControllers = {
@@ -24,4 +26,19 @@ export const historyControllers = {
             ...history
         })
     },
+
+
+    report: async (req: Request, res: Response) => {
+        /*
+        #swagger.tags = ['History']
+        */
+        const certificates = await Certificate.find();
+
+        const report = exportReport(certificates);
+
+        res.setHeader("Content-Type", `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`);
+        res.setHeader("Content-Disposition", `attachment; filename=Report.xlsx`);
+
+        res.status(200).end(report);
+    }
 }

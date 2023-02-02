@@ -11,5 +11,9 @@ router.get('/history',
     historyControllers.get,
 );
 
+router.get('/report',
+    historyControllers.report,
+);
+
 
 export { router as historyRouter };
