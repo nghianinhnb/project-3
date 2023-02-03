@@ -10,9 +10,4 @@ export const pdfApi = {
             },
         });
     },
-
-    publish(id) {
-        const url = `pdf/upload-to-ipfs/${id}`;
-        return axiosClient.get(url);
-    }
 }

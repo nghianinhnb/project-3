@@ -42,16 +42,18 @@ export const pdfControllers = {
             required: 'true',
         }
         */
-        const cert = await Certificate.findOne({id: req.params.certId})
+        const cert = await Certificate.findOne({_id: req.params.certId})
 
         if (!cert) throw new NotFoundError();
 
         if (!cert.isPublished) {
             const CID = await uploadToIpfs(join(constants.PDF_STORAGE_PATH, cert.title));
 
-            Certificate.updateOne({id: req.params.certId}, {isPublished: CID})
+            await Certificate.updateOne({_id: req.params.certId}, {isPublished: CID})
 
             res.send({CID})
+
+            return
         }
 
         res.send({})

@@ -36,6 +36,7 @@ function NavBar() {
         <>
             <Link className="H3-16B" to='/home'>Tạo chứng chỉ</Link>
             <Link className="H3-16B" to='/history'>Lịch sử</Link>
+            <Link className="H3-16B" to='/verify'>Xác thực</Link>
         </>
     )
 }

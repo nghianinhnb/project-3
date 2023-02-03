@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 import axiosClient from "./axiosClient";
+import queryClient from "./queryClient";
 
 
 export const historyQuery = {
@@ -17,4 +18,17 @@ export const historyQuery = {
             }
         )
     },
+
+    usePublishMutation() {
+        return useMutation({
+            mutationKey: ['Publish'],
+            mutationFn(certId) {
+                const url = `pdf/upload-to-ipfs/${certId}`;
+                return axiosClient.get(url);
+            },
+            onSuccess() {
+                queryClient.invalidateQueries({queryKey: ['History']})
+            },
+        })
+    }
 }

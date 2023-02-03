@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import * as xlsx from 'xlsx';
 import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
+import * as xlsx from 'xlsx';
 
 import { historyQuery } from '../../api/historyQuery';
 
@@ -9,10 +8,11 @@ import { historyQuery } from '../../api/historyQuery';
 function History() {
     const [page, setPage] = useState(0);
     const {data} = historyQuery.useHistory({page})
+    const {mutate} = historyQuery.usePublishMutation()
 
     return (
-        <div className="container px-30 pt-15">
-            <div className='bg-white rounded-3 shadow px-30 py-3'>
+        <div className="container pt-15">
+            <div className='bg-white rounded-3 shadow px-10 py-3'>
                 <div className='d-flex flex-row justify-content-between align-items-end mb-10'>
                     <h2>Lịch sử</h2>
                     <p className='text-primary'
@@ -24,23 +24,36 @@ function History() {
                 </div>
 
                 <div className='row'>
-                    <div className='col-6'>Tên chứng chỉ</div>
-                    <div className='col-3'>Ngày tạo</div>
-                    <div className='col-3' align='center'>Đẩy lên blockchain</div>
+                    <div className='col-5'>Tên chứng chỉ</div>
+                    <div className='col-2'>Ngày tạo</div>
+                    <div className='col-5' align='center'>Đẩy lên blockchain</div>
                 </div>
 
                 {data?.history?.map(({id, title, createdAt, isPublished}) => (
                     <div className='py-2' key={id}>
                         <div className='row'>
-                            <div className='col-6'>
+                            <div className='col-5'>
                                 <a href={process.env.REACT_APP_RESOURCES_BASE + `/pdf/${title}`}
                                     download
                                 >
                                     {title}
                                 </a>
                             </div>
-                            <div className='col-3'>{dayjs(createdAt).format('DD/MM/YYYY HH:MM:ss')}</div>
-                            <div className='col-3' align='center'>{isPublished ? 'link' : 'Tai len'}</div>
+                            <div className='col-2'>{dayjs(createdAt).format('DD/MM/YYYY HH:MM:ss')}</div>
+                            <div className='col-5' align='center'>
+                                {
+                                isPublished
+                                ? isPublished
+                                : (
+                                    <p className='text-primary'
+                                            style={{cursor: 'pointer'}}
+                                            onClick={() => mutate(id)}
+                                    >
+                                        Tải lên
+                                    </p>
+                                )
+                                }
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -69,9 +82,14 @@ function downloadHistoryPage(history) {
 
     const workbook = xlsx.utils.book_new();
 
-    const table = [['Tên chứng chỉ', 'Thời gian tạo', 'Link tải']]
-        .concat(history?.map(({title, createdAt}) => 
-            [title, dayjs(createdAt).format('DD/MM/YYYY HH:MM:ss'), process.env.REACT_APP_RESOURCES_BASE + `/pdf/${title}`]
+    const table = [['Tên chứng chỉ', 'Thời gian tạo', 'Link tải', "IPFS uri"]]
+        .concat(history?.map(({title, createdAt, isPublished}) => 
+            [
+                title,
+                dayjs(createdAt).format('DD/MM/YYYY HH:MM:ss'),
+                process.env.REACT_APP_RESOURCES_BASE + `/pdf/${title}`,
+                isPublished || 'Chưa đẩy lên blockchain',
+            ]
         ))
 
     const worksheet = xlsx.utils.aoa_to_sheet(table);

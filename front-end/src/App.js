@@ -8,6 +8,7 @@ import SignUp from "./page/SignUp";
 import SignIn from "./page/SignIn";
 import Main from "./page/Main";
 import History from "./page/History";
+import Verify from "./page/Verify";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 					<Route path='/' element={<Main/>} />
 					<Route path='/home' element={<Main/>} />
 					<Route path='/history' element={<History/>} />
+					<Route path='/verify' element={<Verify/>} />
 				</Route>
 			</Switch>
 		</BrowserRouter>

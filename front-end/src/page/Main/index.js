@@ -1,9 +1,6 @@
-import * as Yup from 'yup';
 import { useFormik } from "formik";
-import { Link } from 'react-router-dom';
 
 import { pdfApi } from '../../api/pdfApi';
-import Input from '../../shared/components/Input';
 
 
 function Main() {
