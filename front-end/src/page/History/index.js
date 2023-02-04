@@ -8,7 +8,7 @@ import { historyQuery } from '../../api/historyQuery';
 function History() {
     const [page, setPage] = useState(0);
     const {data} = historyQuery.useHistory({page})
-    const {mutate} = historyQuery.usePublishMutation()
+    const {mutate, isLoading} = historyQuery.usePublishMutation()
 
     return (
         <div className="container pt-15">
@@ -44,6 +44,8 @@ function History() {
                                 {
                                 isPublished
                                 ? isPublished
+                                : isLoading 
+                                ? <p>Một tệp đang tải lên...</p>
                                 : (
                                     <p className='text-primary'
                                             style={{cursor: 'pointer'}}

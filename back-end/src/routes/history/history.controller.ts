@@ -17,7 +17,7 @@ export const historyControllers = {
         const page = parseInt(req.query.page as string) || 0
         const limit = parseInt(req.query.limit as string) || 10
 
-        const history = await Certificate.find().sort('-createdAt').then((d: Array<any>) => (({
+        const history = await Certificate.find({userId: req.user!.id}).sort('-createdAt').then((d: Array<any>) => (({
             total: d.length,
             data: d.slice(page * limit, page * limit + limit)
         })))
@@ -32,7 +32,7 @@ export const historyControllers = {
         /*
         #swagger.tags = ['History']
         */
-        const certificates = await Certificate.find();
+        const certificates = await Certificate.find({userId: req.user!.id});
 
         const report = exportReport(certificates);
 

@@ -16,7 +16,7 @@ const app = express().disable('x-powered-by');
 
 
 // Common Middlewares
-app.use(cors({origin: 'http://localhost:3000'}));
+app.use(cors({origin: ['http://localhost:3000', 'http://localhost:8000'], credentials: true}));
 app.use('/resources', express.static(path.join(__dirname, '/public')));
 app.use(fileUpload({limits: { fileSize: 50 * 1024 * 1024 }}));
 app.use(express.json({ limit: '50mb' }));

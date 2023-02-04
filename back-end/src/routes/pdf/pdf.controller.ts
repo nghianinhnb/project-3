@@ -24,7 +24,12 @@ export const pdfControllers = {
 
         const certificates = parseTemplate((req.files?.file as fileUpload.UploadedFile).data, {type: 'buffer'});
 
-        const newllyGendedCertTitles = await Promise.all(certificates.map(async (cert) => ({title: await genAndSignCert(cert)})));
+        const newllyGendedCertTitles = await Promise.all(
+            certificates.map(async (cert) => ({
+                title: await genAndSignCert(cert),
+                userId: req.user!.id,
+            }))
+        );
 
         Certificate.insertMany(newllyGendedCertTitles);
 
@@ -42,7 +47,7 @@ export const pdfControllers = {
             required: 'true',
         }
         */
-        const cert = await Certificate.findOne({_id: req.params.certId})
+        const cert = await Certificate.findOne({_id: req.params.certId, userId: req.user!.id})
 
         if (!cert) throw new NotFoundError();
 

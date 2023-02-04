@@ -7,6 +7,11 @@ const certificateSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        userId: {
+            type: Types.ObjectId,
+            require: true,
+            ref: 'User',
+        },
         isPublished: {
             type: String,
         },
