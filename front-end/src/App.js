@@ -25,8 +25,9 @@ function App() {
 					<Route path='/' element={<Main/>} />
 					<Route path='/home' element={<Main/>} />
 					<Route path='/history' element={<History/>} />
-					<Route path='/verify' element={<Verify/>} />
 				</Route>
+
+				<Route path='/verify' element={<Verify/>} />
 			</Switch>
 		</BrowserRouter>
 	);
