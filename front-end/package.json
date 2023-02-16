@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "sass": "^1.58.1",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5",
     "yup": "^0.32.11"
@@ -43,8 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "sass": "^1.57.1"
   }
 }
